@@ -1,5 +1,4 @@
 class UsersController < ApplicationController
-
   def index
     @users = User.all
   end
@@ -9,7 +8,6 @@ class UsersController < ApplicationController
   end
 
   def create
-   
     uid = params[:user][:uid]
     pass = params[:user][:pass]
 
@@ -21,12 +19,11 @@ class UsersController < ApplicationController
       render :new, status: 422
     end
   end
-  
-  
+
+
   def destroy
-    u = User.find(params[:id])   
-    u.destroy                    
+    u = User.find(params[:id])
+    u.destroy
     redirect_to users_path: "ユーザーを削除しました"
   end
-  
 end

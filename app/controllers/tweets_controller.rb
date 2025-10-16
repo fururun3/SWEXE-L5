@@ -1,5 +1,4 @@
 class TweetsController < ApplicationController
-
   def index
     @tweets = Tweet.all
   end
@@ -10,7 +9,7 @@ class TweetsController < ApplicationController
 
   def create
     @tweet = Tweet.new(message: params[:tweet][:message])
-    @tweet.user_id = 20 
+    @tweet.user_id = 20
 
     if @tweet.save
       redirect_to tweets_path, notice: "ツイートを作成しました"
@@ -27,5 +26,4 @@ class TweetsController < ApplicationController
     tweet.destroy
     redirect_to tweets_path, notice: "ツイートを削除しました"
   end
-
 end

@@ -1,5 +1,4 @@
 class TopController < ApplicationController
-
   def main
     if session[:login_uid]
       render "main"
