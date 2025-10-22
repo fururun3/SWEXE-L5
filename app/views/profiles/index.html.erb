@@ -1,0 +1,24 @@
+<h2>プロフィール一覧</h2>
+
+<table border="1" cellpadding="5">
+  <tr>
+    <th>ID</th>
+    <th>メッセージ</th>
+    <th>ユーザー</th>
+    <th>操作</th>
+  </tr>
+
+  <% @profiles.each do |p| %>
+    <tr>
+      <td><%= p.id %></td>
+      <td><%= p.message %></td>
+      <td><%= p.user.uid if p.user %></td>
+      <td>
+        <%= link_to "編集", edit_profile_path(p) %> |
+        <%= link_to "削除", profile_path(p), data: { turbo_method: :delete, turbo_confirm: "本当に削除しますか？" } %>
+      </td>
+    </tr>
+  <% end %>
+</table>
+
+<p><%= link_to "新規プロフィール作成", new_profile_path %></p>

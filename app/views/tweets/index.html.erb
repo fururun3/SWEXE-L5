@@ -1,16 +1,33 @@
-<% @tweets.each do |e| %>
-    <%= e.message %>
-    <%= e.like_tweets.count %>
-    <%= link_to '削除', tweet_path(e), data: {turbo_method: :delete} %>
-   
-    <% if session[:login_uid] %>
-        <%= link_to 'いいね', likes_path(tweet_id: e.id), data: { turbo_method: :post } %>
-        <%= link_to 'いいね削除', like_path(e), data: { turbo_method: :delete } %>
-    <% end %>
-<br>
-<% end %>
+<% if session[:login_uid] %>
+  <!-- ✅ ログインしている場合の表示 -->
 
-<%= link_to "新規追加", new_tweet_path %><br>
-<%= link_to "ログイン", top_main_path %><br>
-<%= link_to "ログアウト", top_logout_path %><br>
-ログイン中UID：<%= session[:login_uid] %>
+  <h3>ツイート一覧</h3>
+
+  <% @tweets.each do |e| %>
+    <p>
+      <%= e.message %>
+      （いいね数：<%= e.likes.count %>）
+      <%= link_to '削除', tweet_path(e), data: { turbo_method: :delete, turbo_confirm: "本当に削除しますか？" } %>
+
+      <!-- いいね機能 -->
+      <%= link_to 'いいね', likes_path(tweet_id: e.id), data: { turbo_method: :post } %>
+      <%= link_to 'いいね削除', like_path(e), data: { turbo_method: :delete } %>
+    </p>
+  <% end %>
+
+  <hr>
+
+  <!-- ✅ ログイン時のみ「新規追加」ボタン表示 -->
+  <%= link_to "新規追加", new_tweet_path %><br>
+
+  <!-- ✅ プロフィールページへのリンク -->
+  <%= link_to "プロフィール一覧を見る", profiles_path %><br>
+
+  <%= link_to "ログアウト", top_logout_path %><br>
+  <p>ログイン中UID：<%= session[:login_uid] %></p>
+
+<% else %>
+  <!-- 🚫 未ログイン時の表示 -->
+  <p>ログインしていません。</p>
+  <%= link_to "ログイン", top_main_path %>
+<% end %>
