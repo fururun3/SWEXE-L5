@@ -8,5 +8,5 @@ Rails.application.routes.draw do
   resources :users
   resources :tweets
   resources :likes
-  resources :profiles  
+  resources :profiles
 end
