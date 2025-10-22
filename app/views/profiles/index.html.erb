@@ -3,22 +3,35 @@
 <table border="1" cellpadding="5">
   <tr>
     <th>ID</th>
-    <th>メッセージ</th>
     <th>ユーザー</th>
+    <th>自己紹介</th>
     <th>操作</th>
   </tr>
 
   <% @profiles.each do |p| %>
     <tr>
       <td><%= p.id %></td>
-      <td><%= p.message %></td>
       <td><%= p.user.uid if p.user %></td>
+      <td><%= p.message %></td>
       <td>
-        <%= link_to "編集", edit_profile_path(p) %> |
-        <%= link_to "削除", profile_path(p), data: { turbo_method: :delete, turbo_confirm: "本当に削除しますか？" } %>
+        <%= link_to "表示", profile_path(p) %> |
+
+        <% if session[:login_uid] == p.user.uid %>
+          <%= link_to "編集", edit_profile_path(p) %> |
+        <% end %>
+
+        <% if session[:login_uid] == p.user.uid %>
+          <%= link_to "削除", profile_path(p),
+                data: { turbo_method: :delete, turbo_confirm: "本当に削除しますか？" } %>
+        <% end %>
       </td>
     </tr>
   <% end %>
 </table>
 
-<p><%= link_to "新規プロフィール作成", new_profile_path %></p>
+<p>
+  <% if session[:login_uid] %>
+    <%= link_to "新規プロフィール作成", new_profile_path %><br>
+  <% end %>
+  <%= link_to "ツイート一覧に戻る", root_path %>
+</p>

@@ -1,2 +1,10 @@
-<h1>Profiles#show</h1>
-<p>Find me in app/views/profiles/show.html.erb</p>
+<h2><%= @profile.user.uid %> さんのプロフィール</h2>
+
+<p><strong>自己紹介：</strong> <%= @profile.message %></p>
+
+<p>
+  <% if session[:login_uid] == @profile.user.uid %>
+    <%= link_to "編集", edit_profile_path(@profile) %> |
+  <% end %>
+  <%= link_to "一覧に戻る", profiles_path %>
+</p>
