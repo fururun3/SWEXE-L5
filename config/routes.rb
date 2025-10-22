@@ -15,8 +15,6 @@ Rails.application.routes.draw do
   resources :tweets
 
   resources :likes
-  
+
   resources :profiles
-  
-  
 end
